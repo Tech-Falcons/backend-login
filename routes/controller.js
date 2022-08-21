@@ -1,6 +1,7 @@
 const router  = require('express').Router();
 const {$where} =  require('../models/UserModel')
 let UserModel = require('../models/UserModel');
+let TempData = require('../models/TempData');
 
 router.route('/').get((req,res) =>{
     UserModel.find()
@@ -8,6 +9,11 @@ router.route('/').get((req,res) =>{
     .catch(err => res.status(400).json('Error'+err));
 });
 
+router.route('/getTempData').get((req,res) =>{
+  TempData.find()
+  .then(temp => res.json(temp))
+  .catch(err => res.status(400).json('Error'+err));
+});
 
 router.route('/create').post(function (req, res) {
     const user = new UserModel(req.body);
